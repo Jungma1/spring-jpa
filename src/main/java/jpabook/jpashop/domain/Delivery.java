@@ -1,0 +1,32 @@
+package jpabook.jpashop.domain;
+
+import static javax.persistence.FetchType.LAZY;
+
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@Entity
+public class Delivery {
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @OneToOne(mappedBy = "delivery", fetch = LAZY)
+    private Order order;
+
+    @Embedded
+    private Address address;
+
+    @Enumerated(EnumType.STRING)
+    private DeliveryStatus status;
+}
