@@ -6,8 +6,8 @@ import jpabook.jpashop.domain.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-@Repository
 @RequiredArgsConstructor
+@Repository
 public class MemberRepository {
 
     private final EntityManager em;
