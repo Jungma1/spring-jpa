@@ -9,11 +9,11 @@ import javax.persistence.InheritanceType;
 import lombok.Getter;
 import lombok.Setter;
 
+@Entity
 @Getter
 @Setter
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "item_type")
-@Entity
 public abstract class Item {
 
     @Id
