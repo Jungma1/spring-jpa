@@ -8,9 +8,11 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import jpabook.jpashop.exception.NotEnoughStockException;
 import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Getter
+@Setter
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "item_type")
 public abstract class Item {
