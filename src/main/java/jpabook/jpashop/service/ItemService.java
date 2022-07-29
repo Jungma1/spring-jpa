@@ -19,6 +19,18 @@ public class ItemService {
         itemRepository.save(item);
     }
 
+    @Transactional
+    public void updateItem(Long itemId, String name, int price, int stockQuantity) {
+        // 영속성 컨텍스트가 자동 감지 변경
+        Item findItem = itemRepository.findOne(itemId);
+
+        // Setter 형식보다 엔티티 내부에서 변경할 수 있는 메서드를 만들어 사용하는 것이 좋음
+        // findItem.changeItem(name, price, stockQuantity);
+        findItem.setName(name);
+        findItem.setPrice(price);
+        findItem.setStockQuantity(stockQuantity);
+    }
+
     public List<Item> findItems() {
         return itemRepository.findAll();
     }
