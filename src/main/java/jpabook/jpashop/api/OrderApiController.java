@@ -12,6 +12,7 @@ import jpabook.jpashop.repository.OrderSearch;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -43,6 +44,18 @@ public class OrderApiController {
     @GetMapping("/api/v3/orders")
     public List<OrderDto> ordersV3() {
         return orderRepository.findAllWithItem().stream()
+                .map(OrderDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/api/v3.1/orders")
+    public List<OrderDto> ordersV3_page(
+            @RequestParam(value = "offset", defaultValue = "0") int offset,
+            @RequestParam(value = "limit", defaultValue = "100") int limit) {
+
+        // (OneToMany) 컬렉션은 지연 로딩으로 조회
+        // *default_batch_fetch_size 설정 -> IN 쿼리로 한 번에 조회
+        return orderRepository.findAllWithMemberDelivery(offset, limit).stream()
                 .map(OrderDto::new)
                 .collect(Collectors.toList());
     }
