@@ -71,4 +71,16 @@ public class OrderRepository {
         return em.createQuery("select o from Order o join fetch o.member m join fetch o.delivery d", Order.class)
                 .getResultList();
     }
+
+    public List<Order> findAllWithItem() {
+        // JPA 에서 distinct 는 SQL 에 distinct 를 추가하고, 더해서 같은 엔티티가 조회되면, 애플리케이션에서 중복을 걸러줌
+        // 단점: 페이징 불가능
+        return em.createQuery(
+                        "select distinct o from Order o"
+                                + " join fetch o.member m"
+                                + " join fetch o.delivery d"
+                                + " join fetch o.orderItems oi"
+                                + " join fetch oi.item i", Order.class)
+                .getResultList();
+    }
 }
